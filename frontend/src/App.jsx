@@ -31,8 +31,8 @@ function App() {
 
     return (
         <div className="w-full h-full grid-cols-[auto_1fr] bg-base text-text">
-            <div>Top</div>
-            <div>Hello w</div>
+            <div className="w-full h-8 bg-surface1"></div>
+            <div>Hello it's {time}</div>
         </div>
     );
 }

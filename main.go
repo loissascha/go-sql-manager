@@ -56,9 +56,11 @@ func main() {
 			Backdrop:                application.MacBackdropTranslucent,
 			TitleBar:                application.MacTitleBarHiddenInset,
 		},
-		BackgroundColour: application.NewRGB(27, 38, 54),
-		Frameless:        true,
-		URL:              "/",
+		BackgroundColour: application.NewRGBA(27, 38, 54, 0),
+		BackgroundType:   application.BackgroundTypeTransparent,
+
+		Frameless: true,
+		URL:       "/",
 	})
 
 	// Create a goroutine that emits an event containing the current time every second.
