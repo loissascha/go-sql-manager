@@ -4,10 +4,12 @@ import (
 	"embed"
 	_ "embed"
 	"log"
+	"runtime"
 	"time"
 
 	"github.com/loissascha/go-sql-manager/internal/services"
 	"github.com/wailsapp/wails/v3/pkg/application"
+	"github.com/wailsapp/wails/v3/pkg/icons"
 )
 
 // Wails uses Go's `embed` package to embed the frontend files into the binary.
@@ -68,6 +70,9 @@ func main() {
 		}
 	}()
 
+	addSysTray(app)
+	// systemTray.AttachWindow(window).WindowOffset(5)
+
 	// Run the application. This blocks until the application has been exited.
 	err := app.Run()
 
@@ -75,4 +80,24 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func addSysTray(app *application.App) *application.SystemTray {
+	systemTray := app.NewSystemTray()
+
+	// icons
+	if runtime.GOOS == "darwin" {
+		systemTray.SetTemplateIcon(icons.SystrayMacTemplate)
+	} else {
+		systemTray.SetDarkModeIcon(icons.SystrayDark)
+		systemTray.SetIcon(icons.SystrayLight)
+	}
+
+	// menu
+	myMenu := app.NewMenu()
+	myMenu.Add("Hello World!").OnClick(func(_ *application.Context) {
+		println("Hello World!")
+	})
+	systemTray.SetMenu(myMenu)
+	return systemTray
 }
