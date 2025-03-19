@@ -30,8 +30,9 @@ function App() {
     }, []);
 
     return (
-        <div className="text-2xl w-full h-full bg-gray-100 dark:bg-gray-900 dark:text-white">
-            Hello w
+        <div className="w-full h-full grid-cols-[auto_1fr] bg-base text-text">
+            <div>Top</div>
+            <div>Hello w</div>
         </div>
     );
 }
