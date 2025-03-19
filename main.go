@@ -95,8 +95,8 @@ func addSysTray(app *application.App) *application.SystemTray {
 
 	// menu
 	myMenu := app.NewMenu()
-	myMenu.Add("Hello World!").OnClick(func(_ *application.Context) {
-		println("Hello World!")
+	myMenu.Add("Quit").OnClick(func(_ *application.Context) {
+		app.Quit()
 	})
 	systemTray.SetMenu(myMenu)
 	return systemTray
