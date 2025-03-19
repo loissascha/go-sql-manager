@@ -1,4 +1,4 @@
-module changeme
+module github.com/loissascha/go-sql-manager
 
 go 1.22.4
 
