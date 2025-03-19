@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/loissascha/go-sql-manager/internal/services"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
@@ -31,7 +32,7 @@ func main() {
 		Name:        "go-sql-manager",
 		Description: "A demo of using raw HTML & CSS",
 		Services: []application.Service{
-			application.NewService(&GreetService{}),
+			application.NewService(&services.GreetService{}),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),

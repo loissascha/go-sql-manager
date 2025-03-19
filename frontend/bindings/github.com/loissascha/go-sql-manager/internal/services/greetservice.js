@@ -11,6 +11,6 @@ import {Call as $Call, Create as $Create} from "@wailsio/runtime";
  * @returns {Promise<string> & { cancel(): void }}
  */
 export function Greet(name) {
-    let $resultPromise = /** @type {any} */($Call.ByID(1411160069, name));
+    let $resultPromise = /** @type {any} */($Call.ByID(1683603208, name));
     return $resultPromise;
 }
