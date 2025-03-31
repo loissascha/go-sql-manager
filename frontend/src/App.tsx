@@ -9,16 +9,6 @@ function App() {
     const updateName = (e: any) => setName(e.target.value)
     const updateResultText = (result: string) => setResultText(result)
 
-    function greet() {
-        Greet(name).then(updateResultText)
-    }
-
-    function listDbButton() {
-        ListDbTables().then((res) => {
-            console.log(res)
-        })
-    }
-
     useEffect(() => {
         ListDbTables().then((res) => {
             setDbList(res)
