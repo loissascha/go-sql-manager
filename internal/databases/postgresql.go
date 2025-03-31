@@ -21,3 +21,7 @@ func (p *PostgreSQL) Connect() (*sql.DB, error) {
 	fmt.Println("Connected to PostgreSQL")
 	return nil, nil
 }
+
+func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
+	return []string{}, nil
+}

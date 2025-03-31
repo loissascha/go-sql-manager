@@ -3,7 +3,6 @@ package databases
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -33,19 +32,20 @@ func (m *MySQL) Connect() (*sql.DB, error) {
 	return db, nil
 }
 
-func (m *MySQL) ListDatabases(db *sql.DB) {
+func (m *MySQL) ListDatabases(db *sql.DB) ([]string, error) {
 	rows, err := db.Query("SHOW DATABASES")
 	if err != nil {
-		log.Fatal("Query failed:", err)
+		return []string{}, err
 	}
 	defer rows.Close()
 
-	fmt.Println("Databases:")
+	list := []string{}
 	for rows.Next() {
 		var dbName string
 		if err := rows.Scan(&dbName); err != nil {
-			log.Fatal(err)
+			return list, err
 		}
-		fmt.Println("-", dbName)
+		list = append(list, dbName)
 	}
+	return list, nil
 }
