@@ -9,9 +9,11 @@ body {
 #root {
     width: 100%;
     height: 100%;
+    background: orange;
 }
 
 body {
+    margin: 0;
     font-family:
         'Nunito',
         -apple-system,
