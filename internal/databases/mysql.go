@@ -1,6 +1,9 @@
 package databases
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type MySQL struct {
 	connectionString string
@@ -15,6 +18,9 @@ func (m MySQL) SetConnectionString(con string) error {
 }
 
 func (m MySQL) Connect() error {
+	if strings.TrimSpace(m.connectionString) == "" {
+		return fmt.Errorf("No connection string provided!")
+	}
 	fmt.Println("Connected to MySQL")
 	return nil
 }
