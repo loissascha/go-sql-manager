@@ -20,8 +20,7 @@ function App() {
     }
 
     return (
-        <div id="App" className='w-full h-full'>
-            <img src={logo} id="logo" alt="logo" />
+        <div className="w-full h-full bg-gray-800 text-white">
             <div id="result" className="result">
                 {resultText}
             </div>
