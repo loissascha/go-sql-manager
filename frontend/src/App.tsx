@@ -47,7 +47,7 @@ function App() {
                             </button>
                             Database: {selectedDb}
                         </div>
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-3 px-5">
                             {tableList.map((table) => (
                                 <DbListItem
                                     key={table}
@@ -60,7 +60,7 @@ function App() {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 px-5">
                         {dbList.map((dbListItem) => (
                             <DbListItem
                                 key={dbListItem}
