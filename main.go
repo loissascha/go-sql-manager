@@ -22,8 +22,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "go-sql-manager",
-		Width:  1024,
-		Height: 768,
+		Width:  1224,
+		Height: 968,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},

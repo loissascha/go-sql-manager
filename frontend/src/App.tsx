@@ -18,23 +18,9 @@ function App() {
     }
 
     return (
-        <div className="w-full h-full bg-gray-800 text-white">
-            <div id="result" className="result">
-                {resultText}
-            </div>
-            <div id="input" className="input-box">
-                <input id="name" className="input" onChange={updateName} autoComplete="off" name="input" type="text" />
-                <button className="btn" onClick={greet}>
-                    Greet
-                </button>
-                <button
-                    onClick={() => {
-                        listDbButton()
-                    }}
-                >
-                    List Databases
-                </button>
-            </div>
+        <div className="w-full h-full bg-gray-800 text-white grid grid-cols-[350px_1fr]">
+            <div className="bg-gray-700"></div>
+            <div></div>
         </div>
     )
 }
