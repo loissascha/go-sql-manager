@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"embed"
 	"go-sql-manager/internal/app"
 	"go-sql-manager/internal/databases"
@@ -14,14 +15,18 @@ import (
 var assets embed.FS
 
 func main() {
-	db := databases.PostgreSQL{}
+	db := &databases.MySQL{}
+	err := db.SetConnectionString("root:root@tcp(127.0.0.1:30306)/")
+	if err != nil {
+		panic(err)
+	}
 	connectDb(db)
 
 	// Create an instance of the app structure
 	a := app.NewApp()
 
 	// Create application with options
-	err := wails.Run(&options.App{
+	err = wails.Run(&options.App{
 		Title:  "go-sql-manager",
 		Width:  1024,
 		Height: 768,
@@ -40,7 +45,10 @@ func main() {
 	}
 }
 
-func connectDb(d databases.Database) {
-	d.SetConnectionString("Example connection string!")
-	d.Connect()
+func connectDb(d databases.Database) *sql.DB {
+	db, err := d.Connect()
+	if err != nil {
+		panic(err)
+	}
+	return db
 }

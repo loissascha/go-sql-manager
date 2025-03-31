@@ -1,6 +1,8 @@
 package databases
 
+import "database/sql"
+
 type Database interface {
 	SetConnectionString(string) error
-	Connect() error
+	Connect() (*sql.DB, error)
 }

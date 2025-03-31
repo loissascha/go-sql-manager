@@ -1,12 +1,15 @@
 package databases
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
 type PostgreSQL struct {
 	connectionString string
 }
 
-func (p PostgreSQL) SetConnectionString(con string) error {
+func (p *PostgreSQL) SetConnectionString(con string) error {
 	if con == "" {
 		return fmt.Errorf("Can't set empty connection string!")
 	}
@@ -14,7 +17,7 @@ func (p PostgreSQL) SetConnectionString(con string) error {
 	return nil
 }
 
-func (p PostgreSQL) Connect() error {
+func (p *PostgreSQL) Connect() (*sql.DB, error) {
 	fmt.Println("Connected to PostgreSQL")
-	return nil
+	return nil, nil
 }
