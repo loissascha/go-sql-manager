@@ -9,3 +9,7 @@ export function Greet(arg1) {
 export function ListDbTables() {
   return window['go']['app']['App']['ListDbTables']();
 }
+
+export function ListTables(arg1) {
+  return window['go']['app']['App']['ListTables'](arg1);
+}

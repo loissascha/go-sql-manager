@@ -4,3 +4,5 @@
 export function Greet(arg1:string):Promise<string>;
 
 export function ListDbTables():Promise<Array<string>>;
+
+export function ListTables(arg1:string):Promise<Array<string>>;

@@ -25,3 +25,7 @@ func (p *PostgreSQL) Connect() (*sql.DB, error) {
 func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
 	return []string{}, nil
 }
+
+func (p *PostgreSQL) ListTables(db *sql.DB, databaseName string) ([]string, error) {
+	return []string{}, nil
+}

@@ -49,3 +49,22 @@ func (m *MySQL) ListDatabases(db *sql.DB) ([]string, error) {
 	}
 	return list, nil
 }
+
+func (m *MySQL) ListTables(db *sql.DB, databaseName string) ([]string, error) {
+	query := fmt.Sprintf("SHOW TABLES FROM `%s`", databaseName)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var tables []string
+	for rows.Next() {
+		var tableName string
+		if err := rows.Scan(&tableName); err != nil {
+			return nil, err
+		}
+		tables = append(tables, tableName)
+	}
+	return tables, nil
+}
