@@ -1,5 +1,5 @@
 package databases
 
-type Connector interface {
+type Database interface {
 	Connect() error
 }
