@@ -41,5 +41,6 @@ func main() {
 }
 
 func connectDb(d databases.Database) {
+	d.SetConnectionString("Example connection string!")
 	d.Connect()
 }
