@@ -5,7 +5,7 @@ interface Props {
 export default function DbListItem({ title, onClick }: Props) {
     return (
         <div
-            className="w-full p-3 text-center cursor-pointer"
+            className="w-3/4 mx-auto p-3 text-center cursor-pointer bg-gray-500 rounded"
             onClick={() => {
                 if (onClick) {
                     onClick()

@@ -17,16 +17,18 @@ function App() {
 
     return (
         <div className="w-full h-full bg-gray-800 text-white grid grid-cols-[350px_1fr]">
-            <div className="bg-gray-700">
-                {dbList.map((dbListItem) => (
-                    <DbListItem
-                        key={dbListItem}
-                        title={dbListItem}
-                        onClick={() => {
-                            console.log('clicked ' + dbListItem)
-                        }}
-                    />
-                ))}
+            <div className="bg-gray-700 py-3">
+                <div className="flex flex-col gap-3">
+                    {dbList.map((dbListItem) => (
+                        <DbListItem
+                            key={dbListItem}
+                            title={dbListItem}
+                            onClick={() => {
+                                console.log('clicked ' + dbListItem)
+                            }}
+                        />
+                    ))}
+                </div>
             </div>
             <div></div>
         </div>
