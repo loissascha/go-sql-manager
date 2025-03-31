@@ -4,6 +4,7 @@ import DbListItem from './components/DbListItem'
 
 function App() {
     const [dbList, setDbList] = useState<string[]>([])
+    const [selectedDb, setSelectedDb] = useState<string>('')
     const [resultText, setResultText] = useState('Please enter your name below 👇')
     const [name, setName] = useState('')
     const updateName = (e: any) => setName(e.target.value)
@@ -15,6 +16,10 @@ function App() {
         })
     }, [])
 
+    function clickDbListItem(name: string) {
+        setSelectedDb(name)
+    }
+
     return (
         <div className="w-full h-full bg-gray-800 text-white grid grid-cols-[350px_1fr]">
             <div className="bg-gray-700 py-3">
@@ -24,7 +29,7 @@ function App() {
                             key={dbListItem}
                             title={dbListItem}
                             onClick={() => {
-                                console.log('clicked ' + dbListItem)
+                                clickDbListItem(dbListItem)
                             }}
                         />
                     ))}
