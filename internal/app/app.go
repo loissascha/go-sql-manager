@@ -19,7 +19,13 @@ func NewApp() *App {
 
 func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
-	a.selectMysqldb()
+	// a.selectMysqldb()
+	a.selectPostgresqldb()
+	c, err := a.activeDb.Connect()
+	if err != nil {
+		panic(err)
+	}
+	a.activeDbConnection = c
 	// TODO: dynamically change active connection based on what the user has selected
 }
 
@@ -29,7 +35,11 @@ func (a *App) selectMysqldb() {
 	if err != nil {
 		panic(err)
 	}
-	a.activeDbConnection, err = a.activeDb.Connect()
+}
+
+func (a *App) selectPostgresqldb() {
+	a.activeDb = &databases.PostgreSQL{}
+	err := a.activeDb.SetConnectionString("postgres://postgres:root@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		panic(err)
 	}
