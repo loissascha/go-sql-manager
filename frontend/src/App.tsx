@@ -14,18 +14,20 @@ function App() {
     useEffect(() => {
         if (selectedDb == '') {
             ListDbTables().then((res) => {
+                console.log(res)
                 if (res == null) {
+                    setDbList([])
                     return
                 }
-                console.log(res)
                 setDbList(res)
             })
         } else {
             ListTables(selectedDb).then((res) => {
+                console.log(res)
                 if (res == null) {
+                    setTableList([])
                     return
                 }
-                console.log(res)
                 setTableList(res)
             })
         }
