@@ -52,6 +52,7 @@ func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
 }
 
 func (p *PostgreSQL) ListTables(db *sql.DB, databaseName string) ([]string, error) {
+	fmt.Println("PostgreSQL ListTables start")
 	query := `SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema')`
 	rows, err := db.Query(query)
 	if err != nil {
@@ -65,7 +66,10 @@ func (p *PostgreSQL) ListTables(db *sql.DB, databaseName string) ([]string, erro
 		if err := rows.Scan(&tableName); err != nil {
 			return nil, err
 		}
+		fmt.Println("found table name:", tableName)
 		tables = append(tables, tableName)
 	}
+	fmt.Println("PostgreSQL ListTables end")
+	fmt.Println(tables)
 	return tables, nil
 }

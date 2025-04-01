@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"go-sql-manager/internal/databases"
+	"log"
 )
 
 type App struct {
@@ -60,6 +61,7 @@ func (a *App) ListDbTables() []string {
 func (a *App) ListTables(dbName string) []string {
 	list, err := a.activeDb.ListTables(a.activeDbConnection, dbName)
 	if err != nil {
+		log.Fatal(err)
 		panic(err)
 	}
 	return list
