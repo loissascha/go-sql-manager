@@ -24,7 +24,7 @@ func (p *PostgreSQL) Connect() (*sql.DB, error) {
 	if strings.TrimSpace(p.connectionString) == "" {
 		return nil, fmt.Errorf("No connection string provided!")
 	}
-	db, err := sql.Open("postgres", p.connectionString)
+	db, err := sql.Open("postgres", p.connectionString+"postgres?sslmode=disable")
 	if err != nil {
 		return nil, err
 	}
@@ -51,8 +51,13 @@ func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
 	return list, nil
 }
 
-func (p *PostgreSQL) ListTables(db *sql.DB, databaseName string) ([]string, error) {
+func (p *PostgreSQL) ListTables(dba *sql.DB, databaseName string) ([]string, error) {
 	fmt.Println("PostgreSQL ListTables start")
+	db, err := sql.Open("postgres", p.connectionString+databaseName+"?sslmode=disable")
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
 	query := `SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema')`
 	rows, err := db.Query(query)
 	if err != nil {

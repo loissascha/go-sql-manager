@@ -40,7 +40,7 @@ func (a *App) selectMysqldb() {
 
 func (a *App) selectPostgresqldb() {
 	a.activeDb = &databases.PostgreSQL{}
-	err := a.activeDb.SetConnectionString("postgres://postgres:root@localhost:5432/postgres?sslmode=disable")
+	err := a.activeDb.SetConnectionString("postgres://postgres:root@localhost:5432/")
 	if err != nil {
 		panic(err)
 	}
