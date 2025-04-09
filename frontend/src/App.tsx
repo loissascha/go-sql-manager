@@ -11,10 +11,8 @@ function App() {
     const [dbList, setDbList] = useState<string[]>([])
     const [tableList, setTableList] = useState<string[]>([])
     const [selectedDb, setSelectedDb] = useState<string>('')
-    const [resultText, setResultText] = useState('Please enter your name below 👇')
-    const [name, setName] = useState('')
-    const updateName = (e: any) => setName(e.target.value)
-    const updateResultText = (result: string) => setResultText(result)
+    // const [name, setName] = useState('')
+    // const updateName = (e: any) => setName(e.target.value)
 
     useEffect(() => {
         if (selectedDb == '') {
@@ -98,7 +96,7 @@ function App() {
                     </div>
                 )}
             </div>
-            <div></div>
+            <div>{selectedPage == Pages.Dashboard ? <>Dashbaord</> : null}</div>
         </div>
     )
 }
