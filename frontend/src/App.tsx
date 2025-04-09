@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react'
 import { Greet, ListDbTables, ListTables } from '../wailsjs/go/app/App'
 import DbListItem from './components/DbListItem'
 
+enum Pages {
+    Dashboard = 'dashboard',
+}
+
 function App() {
+    const [selectedPage, setSelectedPage] = useState<Pages>(Pages.Dashboard)
     const [dbList, setDbList] = useState<string[]>([])
     const [tableList, setTableList] = useState<string[]>([])
     const [selectedDb, setSelectedDb] = useState<string>('')
@@ -44,6 +49,16 @@ function App() {
     return (
         <div className="w-full h-full bg-gray-800 text-white grid grid-cols-[350px_1fr]">
             <div className="bg-gray-700 py-3 max-h-full overflow-y-auto">
+                <div className="border-b border-gray-500 pb-3 mb-3">
+                    <div className="flex flex-col gap-3 px-5">
+                        <DbListItem
+                            title="Dashboard"
+                            onClick={() => {
+                                setSelectedPage(Pages.Dashboard)
+                            }}
+                        />
+                    </div>
+                </div>
                 {selectedDb != '' ? (
                     <div>
                         <div className="mb-3 text-center text-xl">
