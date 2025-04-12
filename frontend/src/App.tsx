@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Greet, ListDbTables, ListTables } from '../wailsjs/go/app/App'
 import DbListItem from './components/DbListItem'
+import Dashboard from './pages/Dashboard'
 
 enum Pages {
     Dashboard = 'dashboard',
+    DbOverview = 'dbOverview',
 }
 
 function App() {
@@ -38,10 +40,12 @@ function App() {
 
     function clickDbListItem(name: string) {
         setSelectedDb(name)
+        setSelectedPage(Pages.DbOverview)
     }
 
     function backButton() {
         setSelectedDb('')
+        setSelectedPage(Pages.Dashboard)
     }
 
     return (
@@ -96,7 +100,7 @@ function App() {
                     </div>
                 )}
             </div>
-            <div>{selectedPage == Pages.Dashboard ? <>Dashbaord</> : null}</div>
+            <div className="p-3">{selectedPage == Pages.Dashboard ? <Dashboard /> : null}</div>
         </div>
     )
 }
