@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Greet, ListDbTables, ListTables } from '../wailsjs/go/app/App'
+import { ListDbTables, ListTables } from '../wailsjs/go/app/App'
 import DbListItem from './components/DbListItem'
 import Dashboard from './pages/Dashboard'
 
 enum Pages {
     Dashboard = 'dashboard',
     DbOverview = 'dbOverview',
+    TableDataview = 'tableDataview',
 }
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     const [dbList, setDbList] = useState<string[]>([])
     const [tableList, setTableList] = useState<string[]>([])
     const [selectedDb, setSelectedDb] = useState<string>('')
+    const [selectedTable, setSelectedTable] = useState<string>('')
     // const [name, setName] = useState('')
     // const updateName = (e: any) => setName(e.target.value)
 
@@ -37,6 +39,11 @@ function App() {
             })
         }
     }, [selectedDb])
+
+    function clickTableListItem(name: string) {
+        setSelectedTable(name)
+        setSelectedPage(Pages.TableDataview)
+    }
 
     function clickDbListItem(name: string) {
         setSelectedDb(name)
@@ -79,8 +86,9 @@ function App() {
                                 <DbListItem
                                     key={table}
                                     title={table}
+                                    selected={selectedTable == table}
                                     onClick={() => {
-                                        console.log('table ' + table + ' clicked')
+                                        clickTableListItem(table)
                                     }}
                                 />
                             ))}
