@@ -58,6 +58,12 @@ function App() {
         setSelectedPage(Pages.Dashboard)
     }
 
+    function dashboardButton() {
+        setSelectedPage(Pages.Dashboard)
+        setSelectedDb('')
+        setSelectedTable('')
+    }
+
     return (
         <div className="w-full h-full bg-gray-800 text-white grid grid-cols-[350px_1fr]">
             <div className="bg-gray-700 py-3 max-h-full overflow-y-auto">
@@ -66,7 +72,7 @@ function App() {
                         <DbListItem
                             title="Dashboard"
                             onClick={() => {
-                                setSelectedPage(Pages.Dashboard)
+                                dashboardButton()
                             }}
                         />
                     </div>
