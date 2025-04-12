@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { ListDbTables, ListTables } from '../wailsjs/go/app/App'
 import DbListItem from './components/DbListItem'
 import Dashboard from './pages/Dashboard'
+import DbOverview from './pages/DbOverview'
+import TableDataview from './pages/TableDataview'
 
 enum Pages {
     Dashboard = 'dashboard',
@@ -52,6 +54,7 @@ function App() {
 
     function backButton() {
         setSelectedDb('')
+        setSelectedTable('')
         setSelectedPage(Pages.Dashboard)
     }
 
@@ -108,7 +111,15 @@ function App() {
                     </div>
                 )}
             </div>
-            <div className="p-3">{selectedPage == Pages.Dashboard ? <Dashboard /> : null}</div>
+            <div className="p-3">
+                {selectedPage == Pages.Dashboard ? (
+                    <Dashboard />
+                ) : selectedPage == Pages.DbOverview ? (
+                    <DbOverview />
+                ) : selectedPage == Pages.TableDataview ? (
+                    <TableDataview />
+                ) : null}
+            </div>
         </div>
     )
 }
