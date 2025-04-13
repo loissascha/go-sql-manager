@@ -8,7 +8,13 @@ import './../style.css'
 
 export default function Dashboard() {
     const [createHost, setCreateHost] = useState<string>('')
+    const [createPort, setCreatePort] = useState<string>('')
+    const [createUser, setCreateUser] = useState<string>('')
+    const [createPassword, setCreatePassword] = useState<string>('')
     const updateCreateHost = (event: any) => setCreateHost(event.target.value)
+    const updateCreatePort = (event: any) => setCreatePort(event.target.value)
+    const updateCreateUser = (event: any) => setCreateUser(event.target.value)
+    const updateCreatePassword = (event: any) => setCreatePassword(event.target.value)
 
     useEffect(() => {
         GetDatabaseConfigs()
@@ -36,23 +42,23 @@ export default function Dashboard() {
                         </FormGroup>
                         <FormGroup>
                             <FormLabel htmlFor="port">Port:</FormLabel>
-                            <InputText id="port" />
+                            <InputText id="port" value={createPort} onChange={updateCreatePort} />
                         </FormGroup>
                         <FormGroup>
                             <FormLabel htmlFor="user">User:</FormLabel>
-                            <InputText id="user" />
+                            <InputText id="user" value={createUser} onChange={updateCreateUser} />
                         </FormGroup>
                         <FormGroup>
                             <FormLabel htmlFor="password">Password:</FormLabel>
-                            <InputText id="password" />
+                            <InputText id="password" value={createPassword} onChange={updateCreatePassword} />
                         </FormGroup>
                     </div>
                     <div className="mt-5">
                         <FormGroup>
                             <FormLabel htmlFor="engine">Engine:</FormLabel>
                             <select id="engine" className="bg-gray-700 text-black w-full">
-                                <option>Postgres</option>
-                                <option>MySql</option>
+                                <option value={0}>Postgres</option>
+                                <option value={1}>MySql</option>
                             </select>
                         </FormGroup>
                     </div>
