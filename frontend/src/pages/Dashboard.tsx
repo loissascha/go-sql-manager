@@ -99,8 +99,8 @@ export default function Dashboard() {
                             connectionPressed(connection.Id)
                         }}
                     >
-                        {connection.Host}:{connection.Port} - {connection.User}{' '}
-                        {connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}
+                        <strong>[{connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}]</strong> {connection.Host}:
+                        {connection.Port} - {connection.User}
                     </button>
                 ))}
             </div>
