@@ -12,7 +12,7 @@ type App struct {
 	ctx                context.Context
 	activeDb           databases.Database
 	activeDbConnection *sql.DB
-	databaseConfig     configs.Database
+	databaseConfig     *configs.Database
 }
 
 func NewApp() *App {
@@ -21,7 +21,7 @@ func NewApp() *App {
 
 func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
-	a.databaseConfig = *configs.NewDatabase()
+	a.databaseConfig = configs.NewDatabase()
 
 	// a.selectMysqldb()
 	// a.selectPostgresqldb()
