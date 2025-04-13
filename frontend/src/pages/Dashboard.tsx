@@ -16,14 +16,14 @@ export default function Dashboard() {
 
     return (
         <div className="h-full w-full">
-            <div className="w-full">
-                <h1>Create Connection</h1>
+            <div className="w-full mb-5">
+                <h1 className="text-xl mb-3">Create Connection</h1>
                 <div className="grid grid-cols-2 gap-5">
-                    <div className="grid grid-cols-[auto_1fr] gap-3">
+                    <div className="grid grid-cols-[auto_1fr] gap-3 items-center">
                         <label>Host:</label>
-                        <InputText />
+                        <InputText id="host" />
                     </div>
-                    <div className="grid grid-cols-[auto_1fr] gap-3">
+                    <div className="grid grid-cols-[auto_1fr] gap-3 items-center">
                         <label>Port:</label>
                         <InputText />
                     </div>
