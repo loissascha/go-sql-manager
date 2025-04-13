@@ -15,6 +15,7 @@ const (
 )
 
 type DatabaseConfig struct {
+	Id       string
 	User     string
 	Host     string
 	Port     string

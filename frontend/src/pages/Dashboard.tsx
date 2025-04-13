@@ -37,6 +37,8 @@ export default function Dashboard() {
             })
     }
 
+    function connectionPressed(id: string) {}
+
     function createFormSubmitted(event: any) {
         event.preventDefault()
         AddDatabaseConfig(createHost, createPort, createUser, createPassword, createEngine)
@@ -90,7 +92,13 @@ export default function Dashboard() {
             <Header1>Available Connections</Header1>
             <div>
                 {connections.map((connection: any) => (
-                    <button className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded">
+                    <button
+                        key={connection.Id}
+                        className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
+                        onClick={() => {
+                            connectionPressed(connection.Id)
+                        }}
+                    >
                         {connection.Host}:{connection.Port} - {connection.User}{' '}
                         {connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}
                     </button>

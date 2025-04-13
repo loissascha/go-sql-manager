@@ -6,6 +6,8 @@ import (
 	"go-sql-manager/internal/configs"
 	"go-sql-manager/internal/databases"
 	"log"
+
+	"github.com/google/uuid"
 )
 
 type App struct {
@@ -81,14 +83,19 @@ func (a *App) AddDatabaseConfig(host string, port string, user string, password 
 	if engine == "1" {
 		dbtype = configs.DATABASE_POSTGRES
 	}
+	id, err := uuid.NewUUID()
+	if err != nil {
+		panic(err)
+	}
 	cfg := configs.DatabaseConfig{
+		Id:       id.String(),
 		Port:     port,
 		User:     user,
 		Host:     host,
 		Password: password,
 		Type:     dbtype,
 	}
-	err := a.databaseConfig.AddDatabaseConfig(cfg)
+	err = a.databaseConfig.AddDatabaseConfig(cfg)
 	if err != nil {
 		panic(err)
 	}

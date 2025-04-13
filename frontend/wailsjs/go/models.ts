@@ -1,6 +1,7 @@
 export namespace configs {
 	
 	export class DatabaseConfig {
+	    Id: string;
 	    User: string;
 	    Host: string;
 	    Port: string;
@@ -13,6 +14,7 @@ export namespace configs {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Id = source["Id"];
 	        this.User = source["User"];
 	        this.Host = source["Host"];
 	        this.Port = source["Port"];
