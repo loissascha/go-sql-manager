@@ -3,6 +3,7 @@ import { ListDbTables, ListTables } from '../wailsjs/go/app/App'
 import DbListItem from './components/DbListItem'
 import Dashboard from './pages/Dashboard'
 import DbOverview from './pages/DbOverview'
+import './style.css'
 import TableDataview from './pages/TableDataview'
 
 enum Pages {
