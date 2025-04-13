@@ -4,6 +4,7 @@ import FormGroup from '../components/form/FormGroup'
 import FormLabel from '../components/form/FormLabel'
 import InputText from '../components/form/InputText'
 import Button from '../components/ui/Button'
+import Header1 from '../components/ui/Header1'
 import './../style.css'
 
 export default function Dashboard() {
@@ -51,7 +52,7 @@ export default function Dashboard() {
     return (
         <div className="h-full w-full">
             <div className="w-full mb-5">
-                <h1 className="text-xl mb-3">Create Connection</h1>
+                <Header1>Create Connection</Header1>
                 <form onSubmit={createFormSubmitted}>
                     <div className="grid grid-cols-2 gap-5">
                         <FormGroup>
@@ -86,7 +87,7 @@ export default function Dashboard() {
                     </div>
                 </form>
             </div>
-            <div>Available Connections</div>
+            <Header1>Available Connections</Header1>
             <div>
                 {connections.map((connection: any) => (
                     <div>
