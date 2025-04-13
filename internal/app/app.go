@@ -3,7 +3,6 @@ package app
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"go-sql-manager/internal/configs"
 	"go-sql-manager/internal/databases"
 	"log"
@@ -25,12 +24,12 @@ func (a *App) Startup(ctx context.Context) {
 	a.databaseConfig = *configs.NewDatabase()
 
 	// a.selectMysqldb()
-	a.selectPostgresqldb()
-	c, err := a.activeDb.Connect()
-	if err != nil {
-		panic(err)
-	}
-	a.activeDbConnection = c
+	// a.selectPostgresqldb()
+	// c, err := a.activeDb.Connect()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// a.activeDbConnection = c
 	// TODO: dynamically change active connection based on what the user has selected
 }
 
@@ -50,11 +49,10 @@ func (a *App) selectPostgresqldb() {
 	}
 }
 
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
-}
-
 func (a *App) ListDbTables() []string {
+	if a.activeDb == nil {
+		return []string{}
+	}
 	list, err := a.activeDb.ListDatabases(a.activeDbConnection)
 	if err != nil {
 		panic(err)
@@ -63,6 +61,9 @@ func (a *App) ListDbTables() []string {
 }
 
 func (a *App) ListTables(dbName string) []string {
+	if a.activeDb == nil {
+		return []string{}
+	}
 	list, err := a.activeDb.ListTables(a.activeDbConnection, dbName)
 	if err != nil {
 		log.Fatal(err)
