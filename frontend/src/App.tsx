@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ListDbTables, ListTables } from '../wailsjs/go/app/App'
+import { EventsOn, EventsOff } from '../wailsjs/runtime/runtime'
 import DbListItem from './components/DbListItem'
 import Dashboard from './pages/Dashboard'
 import DbOverview from './pages/DbOverview'
@@ -22,6 +23,23 @@ function App() {
     // const updateName = (e: any) => setName(e.target.value)
 
     useEffect(() => {
+        const handler = () => {
+            console.log('connection changed!')
+            updateMenuData()
+        }
+
+        EventsOn('ConnectionChanged', handler)
+
+        return () => {
+            EventsOff('ConnectionChanged')
+        }
+    }, [])
+
+    useEffect(() => {
+        updateMenuData()
+    }, [selectedDb])
+
+    function updateMenuData() {
         if (selectedDb == '') {
             ListDbTables().then((res) => {
                 console.log(res)
@@ -41,7 +59,7 @@ function App() {
                 setTableList(res)
             })
         }
-    }, [selectedDb])
+    }
 
     function clickTableListItem(name: string) {
         setSelectedTable(name)

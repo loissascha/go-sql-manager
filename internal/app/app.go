@@ -9,6 +9,7 @@ import (
 	"log"
 
 	"github.com/google/uuid"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 type App struct {
@@ -114,7 +115,8 @@ func (a *App) ActivateConnection(id string) {
 				panic(err)
 			}
 			a.activeDbConnection = c
-			// TODO: emit event that alerts the client of a change in active db
+			fmt.Println("Emitting Event!")
+			runtime.EventsEmit(a.ctx, "ConnectionChanged")
 			break
 		}
 	}
