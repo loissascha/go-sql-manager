@@ -76,5 +76,20 @@ func (a *App) GetDatabaseConfigs() []configs.DatabaseConfig {
 	return a.databaseConfig.GetDatabaseConfigs()
 }
 
-func (a *App) AddDatabaseConfig(host string, port string, user string, password string, enigne string) {
+func (a *App) AddDatabaseConfig(host string, port string, user string, password string, engine string) {
+	dbtype := configs.DATABASE_MYSQL
+	if engine == "1" {
+		dbtype = configs.DATABASE_POSTGRES
+	}
+	cfg := configs.DatabaseConfig{
+		Port:     port,
+		User:     user,
+		Host:     host,
+		Password: password,
+		Type:     dbtype,
+	}
+	err := a.databaseConfig.AddDatabaseConfig(cfg)
+	if err != nil {
+		panic(err)
+	}
 }
