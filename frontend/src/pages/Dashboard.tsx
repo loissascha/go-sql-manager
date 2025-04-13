@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GetDatabaseConfigs } from '../../wailsjs/go/app/App'
+import { AddDatabaseConfig, GetDatabaseConfigs } from '../../wailsjs/go/app/App'
 import FormGroup from '../components/form/FormGroup'
 import FormLabel from '../components/form/FormLabel'
 import InputText from '../components/form/InputText'
@@ -19,6 +19,10 @@ export default function Dashboard() {
     const updateCreateEngine = (event: any) => setCreateEngine(event.target.value)
 
     useEffect(() => {
+        loadDbConfigs()
+    }, [])
+
+    function loadDbConfigs() {
         GetDatabaseConfigs()
             .then((result) => {
                 console.log(result)
@@ -26,10 +30,18 @@ export default function Dashboard() {
             .catch((error) => {
                 alert(error)
             })
-    }, [])
+    }
 
     function createFormSubmitted(event: any) {
         event.preventDefault()
+        AddDatabaseConfig(createHost, createPort, createUser, createPassword, createEngine)
+            .then(() => {
+                console.log('done!')
+                loadDbConfigs()
+            })
+            .catch((error) => {
+                alert(error)
+            })
     }
 
     return (
