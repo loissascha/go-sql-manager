@@ -47,6 +47,7 @@ func (d *Database) GetDatabaseConfigs() []DatabaseConfig {
 		panic(err)
 	}
 	if !filesystem.FileExists(filepath) {
+		d.initialized = true
 		return d.data
 	}
 
@@ -76,7 +77,7 @@ func (d *Database) SaveDatabaseConfigs() error {
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile(filepath, jsonData, os.ModeAppend)
+	err = os.WriteFile(filepath, jsonData, 0644)
 	if err != nil {
 		return err
 	}
