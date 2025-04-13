@@ -31,6 +31,14 @@ func NewDatabase() *Database {
 	return &Database{}
 }
 
+func (d *Database) AddDatabaseConfig(config DatabaseConfig) {
+	d.data = append(d.data, config)
+	err := d.SaveDatabaseConfigs()
+	if err != nil {
+		panic(err)
+	}
+}
+
 func (d *Database) GetDatabaseConfigs() []DatabaseConfig {
 	if d.initialized {
 		return d.data
