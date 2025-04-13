@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"go-sql-manager/internal/configs"
 	"go-sql-manager/internal/databases"
 	"log"
 )
@@ -12,6 +13,7 @@ type App struct {
 	ctx                context.Context
 	activeDb           databases.Database
 	activeDbConnection *sql.DB
+	databaseConfig     configs.Database
 }
 
 func NewApp() *App {
@@ -20,6 +22,8 @@ func NewApp() *App {
 
 func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
+	a.databaseConfig = *configs.NewDatabase()
+
 	// a.selectMysqldb()
 	a.selectPostgresqldb()
 	c, err := a.activeDb.Connect()
@@ -65,4 +69,8 @@ func (a *App) ListTables(dbName string) []string {
 		panic(err)
 	}
 	return list
+}
+
+func (a *App) GetDatabaseConfigs() []configs.DatabaseConfig {
+	return a.databaseConfig.GetDatabaseConfigs()
 }
