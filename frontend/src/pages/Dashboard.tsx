@@ -18,6 +18,8 @@ export default function Dashboard() {
     const updateCreatePassword = (event: any) => setCreatePassword(event.target.value)
     const updateCreateEngine = (event: any) => setCreateEngine(event.target.value)
 
+    const [connections, setConnections] = useState<any[]>([])
+
     useEffect(() => {
         loadDbConfigs()
     }, [])
@@ -25,7 +27,9 @@ export default function Dashboard() {
     function loadDbConfigs() {
         GetDatabaseConfigs()
             .then((result) => {
+                console.log('result:')
                 console.log(result)
+                setConnections(result)
             })
             .catch((error) => {
                 alert(error)
@@ -83,6 +87,14 @@ export default function Dashboard() {
                 </form>
             </div>
             <div>Available Connections</div>
+            <div>
+                {connections.map((connection: any) => (
+                    <div>
+                        {connection.Host}:{connection.Port} - {connection.User}{' '}
+                        {connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
