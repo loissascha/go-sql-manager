@@ -38,6 +38,15 @@ export default function Dashboard() {
                         <InputText />
                     </FormGroup>
                 </div>
+                <div className="mt-5">
+                    <FormGroup>
+                        <FormLabel>Engine:</FormLabel>
+                        <select className="bg-gray-700 text-black">
+                            <option>Postgres</option>
+                            <option>MySql</option>
+                        </select>
+                    </FormGroup>
+                </div>
             </div>
             <div>Available Connections</div>
         </div>
