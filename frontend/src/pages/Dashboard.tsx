@@ -22,7 +22,7 @@ export default function Dashboard() {
                 <h1 className="text-xl mb-3">Create Connection</h1>
                 <div className="grid grid-cols-2 gap-5">
                     <FormGroup>
-                        <FormLabel>Host:</FormLabel>
+                        <FormLabel htmlFor="host">Host:</FormLabel>
                         <InputText id="host" />
                     </FormGroup>
                     <FormGroup>
@@ -41,7 +41,7 @@ export default function Dashboard() {
                 <div className="mt-5">
                     <FormGroup>
                         <FormLabel>Engine:</FormLabel>
-                        <select className="bg-gray-700 text-black">
+                        <select className="bg-gray-700 text-black w-full">
                             <option>Postgres</option>
                             <option>MySql</option>
                         </select>
