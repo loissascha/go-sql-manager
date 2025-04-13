@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AddDatabaseConfig, GetDatabaseConfigs } from '../../wailsjs/go/app/App'
+import { ActivateConnection, AddDatabaseConfig, GetDatabaseConfigs } from '../../wailsjs/go/app/App'
 import FormGroup from '../components/form/FormGroup'
 import FormLabel from '../components/form/FormLabel'
 import InputText from '../components/form/InputText'
@@ -37,7 +37,9 @@ export default function Dashboard() {
             })
     }
 
-    function connectionPressed(id: string) {}
+    function connectionPressed(id: string) {
+        ActivateConnection(id)
+    }
 
     function createFormSubmitted(event: any) {
         event.preventDefault()
