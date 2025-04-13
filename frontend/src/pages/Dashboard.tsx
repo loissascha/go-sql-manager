@@ -29,6 +29,14 @@ export default function Dashboard() {
                         <FormLabel>Port:</FormLabel>
                         <InputText />
                     </FormGroup>
+                    <FormGroup>
+                        <FormLabel>User:</FormLabel>
+                        <InputText />
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Password:</FormLabel>
+                        <InputText />
+                    </FormGroup>
                 </div>
             </div>
             <div>Available Connections</div>
