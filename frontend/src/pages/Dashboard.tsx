@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { GetDatabaseConfigs } from '../../wailsjs/go/app/App'
+import FormGroup from '../components/form/FormGroup'
+import FormLabel from '../components/form/FormLabel'
 import InputText from '../components/form/InputText'
 import './../style.css'
 
@@ -19,14 +21,14 @@ export default function Dashboard() {
             <div className="w-full mb-5">
                 <h1 className="text-xl mb-3">Create Connection</h1>
                 <div className="grid grid-cols-2 gap-5">
-                    <div className="grid grid-cols-[auto_1fr] gap-3 items-center">
-                        <label>Host:</label>
+                    <FormGroup>
+                        <FormLabel>Host:</FormLabel>
                         <InputText id="host" />
-                    </div>
-                    <div className="grid grid-cols-[auto_1fr] gap-3 items-center">
-                        <label>Port:</label>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Port:</FormLabel>
                         <InputText />
-                    </div>
+                    </FormGroup>
                 </div>
             </div>
             <div>Available Connections</div>
