@@ -90,10 +90,10 @@ export default function Dashboard() {
             <Header1>Available Connections</Header1>
             <div>
                 {connections.map((connection: any) => (
-                    <div>
+                    <button className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded">
                         {connection.Host}:{connection.Port} - {connection.User}{' '}
                         {connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>
