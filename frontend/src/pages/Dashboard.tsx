@@ -1,11 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { GetDatabaseConfigs } from '../../wailsjs/go/app/App'
 import FormGroup from '../components/form/FormGroup'
 import FormLabel from '../components/form/FormLabel'
 import InputText from '../components/form/InputText'
+import Button from '../components/ui/Button'
 import './../style.css'
 
 export default function Dashboard() {
+    const [createHost, setCreateHost] = useState<string>('')
+    const updateCreateHost = (event: any) => setCreateHost(event.target.value)
+
     useEffect(() => {
         GetDatabaseConfigs()
             .then((result) => {
@@ -16,37 +20,46 @@ export default function Dashboard() {
             })
     }, [])
 
+    function createFormSubmitted(event: any) {
+        event.preventDefault()
+    }
+
     return (
         <div className="h-full w-full">
             <div className="w-full mb-5">
                 <h1 className="text-xl mb-3">Create Connection</h1>
-                <div className="grid grid-cols-2 gap-5">
-                    <FormGroup>
-                        <FormLabel htmlFor="host">Host:</FormLabel>
-                        <InputText id="host" />
-                    </FormGroup>
-                    <FormGroup>
-                        <FormLabel>Port:</FormLabel>
-                        <InputText />
-                    </FormGroup>
-                    <FormGroup>
-                        <FormLabel>User:</FormLabel>
-                        <InputText />
-                    </FormGroup>
-                    <FormGroup>
-                        <FormLabel>Password:</FormLabel>
-                        <InputText />
-                    </FormGroup>
-                </div>
-                <div className="mt-5">
-                    <FormGroup>
-                        <FormLabel>Engine:</FormLabel>
-                        <select className="bg-gray-700 text-black w-full">
-                            <option>Postgres</option>
-                            <option>MySql</option>
-                        </select>
-                    </FormGroup>
-                </div>
+                <form onSubmit={createFormSubmitted}>
+                    <div className="grid grid-cols-2 gap-5">
+                        <FormGroup>
+                            <FormLabel htmlFor="host">Host:</FormLabel>
+                            <InputText id="host" value={createHost} onChange={updateCreateHost} />
+                        </FormGroup>
+                        <FormGroup>
+                            <FormLabel htmlFor="port">Port:</FormLabel>
+                            <InputText id="port" />
+                        </FormGroup>
+                        <FormGroup>
+                            <FormLabel htmlFor="user">User:</FormLabel>
+                            <InputText id="user" />
+                        </FormGroup>
+                        <FormGroup>
+                            <FormLabel htmlFor="password">Password:</FormLabel>
+                            <InputText id="password" />
+                        </FormGroup>
+                    </div>
+                    <div className="mt-5">
+                        <FormGroup>
+                            <FormLabel htmlFor="engine">Engine:</FormLabel>
+                            <select id="engine" className="bg-gray-700 text-black w-full">
+                                <option>Postgres</option>
+                                <option>MySql</option>
+                            </select>
+                        </FormGroup>
+                    </div>
+                    <div className="mt-5">
+                        <Button>Save</Button>
+                    </div>
+                </form>
             </div>
             <div>Available Connections</div>
         </div>
