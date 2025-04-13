@@ -75,3 +75,6 @@ func (a *App) ListTables(dbName string) []string {
 func (a *App) GetDatabaseConfigs() []configs.DatabaseConfig {
 	return a.databaseConfig.GetDatabaseConfigs()
 }
+
+func (a *App) AddDatabaseConfig(host string, port string, user string, password string, enigne string) {
+}
