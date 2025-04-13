@@ -60,8 +60,8 @@ export default function Dashboard() {
                             <FormLabel htmlFor="engine">Engine:</FormLabel>
                             <select id="engine" className="bg-gray-700 text-black w-full" value={createEngine} onChange={updateCreateEngine}>
                                 <option value={''}>Please select...</option>
-                                <option value={'0'}>Postgres</option>
-                                <option value={'1'}>MySql</option>
+                                <option value={'0'}>MySql</option>
+                                <option value={'1'}>Postgres</option>
                             </select>
                         </FormGroup>
                     </div>
