@@ -2,6 +2,7 @@ package configs
 
 import (
 	"encoding/json"
+	"fmt"
 	"go-sql-manager/internal/filesystem"
 	"os"
 )
@@ -53,5 +54,25 @@ func (d *Database) GetDatabaseConfigs() []DatabaseConfig {
 	if err := decoder.Decode(&d.data); err != nil {
 		panic("Can't decode database.json file")
 	}
+	d.initialized = true
 	return d.data
+}
+
+func (d *Database) SaveDatabaseConfigs() error {
+	if !d.initialized {
+		return fmt.Errorf("Database not yet initialized. Please load data before trying to save.")
+	}
+	filepath, err := filesystem.GetSavePath("databases.json")
+	if err != nil {
+		return err
+	}
+	jsonData, err := json.Marshal(d.data)
+	if err != nil {
+		return err
+	}
+	err = os.WriteFile(filepath, jsonData, os.ModeAppend)
+	if err != nil {
+		return err
+	}
+	return nil
 }
