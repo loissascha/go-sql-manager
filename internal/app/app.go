@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"go-sql-manager/internal/configs"
 	"go-sql-manager/internal/databases"
 	"log"
@@ -33,22 +34,6 @@ func (a *App) Startup(ctx context.Context) {
 	// }
 	// a.activeDbConnection = c
 	// TODO: dynamically change active connection based on what the user has selected
-}
-
-func (a *App) selectMysqldb() {
-	a.activeDb = &databases.MySQL{}
-	err := a.activeDb.SetConnectionString("root:root@tcp(127.0.0.1:30306)/")
-	if err != nil {
-		panic(err)
-	}
-}
-
-func (a *App) selectPostgresqldb() {
-	a.activeDb = &databases.PostgreSQL{}
-	err := a.activeDb.SetConnectionString("postgres://postgres:root@localhost:5432/")
-	if err != nil {
-		panic(err)
-	}
 }
 
 func (a *App) ListDbTables() []string {
@@ -96,6 +81,56 @@ func (a *App) AddDatabaseConfig(host string, port string, user string, password 
 		Type:     dbtype,
 	}
 	err = a.databaseConfig.AddDatabaseConfig(cfg)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func (a *App) ActivateConnection(id string) {
+	dblist := a.databaseConfig.GetDatabaseConfigs()
+	for _, cfg := range dblist {
+		if cfg.Id == id {
+			switch cfg.Type {
+			case configs.DATABASE_MYSQL:
+				a.activeDb = &databases.MySQL{}
+				connStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/", cfg.User, cfg.Password, cfg.Host, cfg.Port)
+				err := a.activeDb.SetConnectionString(connStr)
+				if err != nil {
+					panic(err)
+				}
+				break
+			case configs.DATABASE_POSTGRES:
+				a.activeDb = &databases.PostgreSQL{}
+				connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/", cfg.User, cfg.Password, cfg.Host, cfg.Port)
+				err := a.activeDb.SetConnectionString(connStr)
+				if err != nil {
+					panic(err)
+				}
+				break
+			}
+			// connect the database!
+			c, err := a.activeDb.Connect()
+			if err != nil {
+				panic(err)
+			}
+			a.activeDbConnection = c
+			// TODO: emit event that alerts the client of a change in active db
+			break
+		}
+	}
+}
+
+func (a *App) selectMysqldb() {
+	a.activeDb = &databases.MySQL{}
+	err := a.activeDb.SetConnectionString("root:root@tcp(127.0.0.1:30306)/")
+	if err != nil {
+		panic(err)
+	}
+}
+
+func (a *App) selectPostgresqldb() {
+	a.activeDb = &databases.PostgreSQL{}
+	err := a.activeDb.SetConnectionString("postgres://postgres:root@localhost:5432/")
 	if err != nil {
 		panic(err)
 	}
