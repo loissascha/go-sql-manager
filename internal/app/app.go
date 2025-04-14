@@ -26,15 +26,6 @@ func NewApp() *App {
 func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
 	a.databaseConfig = configs.NewDatabase()
-
-	// a.selectMysqldb()
-	// a.selectPostgresqldb()
-	// c, err := a.activeDb.Connect()
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// a.activeDbConnection = c
-	// TODO: dynamically change active connection based on what the user has selected
 }
 
 func (a *App) ListDbTables() []string {
