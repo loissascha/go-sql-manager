@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"go-sql-manager/internal/configs"
 	"go-sql-manager/internal/databases"
-	"log"
 
 	"github.com/google/uuid"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -34,7 +33,7 @@ func (a *App) ListDbTables() []string {
 	}
 	list, err := a.activeDb.ListDatabases(a.activeDbConnection)
 	if err != nil {
-		panic(err)
+		return []string{}
 	}
 	return list
 }
@@ -45,8 +44,7 @@ func (a *App) ListTables(dbName string) []string {
 	}
 	list, err := a.activeDb.ListTables(a.activeDbConnection, dbName)
 	if err != nil {
-		log.Fatal(err)
-		panic(err)
+		return []string{}
 	}
 	return list
 }
