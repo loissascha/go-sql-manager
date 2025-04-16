@@ -41,23 +41,31 @@ function App() {
 
     function updateMenuData() {
         if (selectedDb == '') {
-            ListDbTables().then((res) => {
-                console.log(res)
-                if (res == null) {
+            ListDbTables()
+                .then((res) => {
+                    console.log(res)
+                    if (res == null) {
+                        setDbList([])
+                        return
+                    }
+                    setDbList(res)
+                })
+                .catch((error) => {
                     setDbList([])
-                    return
-                }
-                setDbList(res)
-            })
+                })
         } else {
-            ListTables(selectedDb).then((res) => {
-                console.log(res)
-                if (res == null) {
-                    setTableList([])
-                    return
-                }
-                setTableList(res)
-            })
+            ListTables(selectedDb)
+                .then((res) => {
+                    console.log(res)
+                    if (res == null) {
+                        setTableList([])
+                        return
+                    }
+                    setTableList(res)
+                })
+                .catch((error) => {
+                    setDbList([])
+                })
         }
     }
 
