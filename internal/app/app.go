@@ -103,6 +103,7 @@ func (a *App) ActivateConnection(id string) {
 			// connect the database!
 			c, err := a.activeDb.Connect()
 			if err != nil {
+				fmt.Println("Connect failed!")
 				panic(err)
 			}
 			a.activeDbConnection = c
