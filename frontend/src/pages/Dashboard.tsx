@@ -54,19 +54,6 @@ export default function Dashboard() {
             })
     }
 
-    function connectionContextMenu(event: any) {
-        event.preventDefault()
-    }
-
-    function handleClick() {}
-
-    useEffect(() => {
-        document.addEventListener('click', handleClick)
-        return () => {
-            document.removeEventListener('click', handleClick)
-        }
-    }, [])
-
     return (
         <div className="h-full w-full">
             <div className="w-full mb-5">
@@ -112,7 +99,6 @@ export default function Dashboard() {
                         <ContextMenu.Trigger asChild>
                             <button
                                 className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
-                                onContextMenu={connectionContextMenu}
                                 onClick={() => {
                                     connectionPressed(connection.Id)
                                 }}
@@ -123,7 +109,7 @@ export default function Dashboard() {
                         </ContextMenu.Trigger>
                         <ContextMenu.Portal>
                             <ContextMenu.Content className="min-w-[200px] bg-white border border-gray-300 rounded shadow-md p-1">
-                                <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">Option 1</ContextMenu.Item>
+                                <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">Delete Connection</ContextMenu.Item>
                             </ContextMenu.Content>
                         </ContextMenu.Portal>
                     </ContextMenu.Root>
