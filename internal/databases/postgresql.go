@@ -78,3 +78,7 @@ func (p *PostgreSQL) ListTables(dba *sql.DB, databaseName string) ([]string, err
 	fmt.Println(tables)
 	return tables, nil
 }
+
+func (m *PostgreSQL) ListTable(db *sql.DB, databaseName string, tableName string) error {
+	return nil
+}

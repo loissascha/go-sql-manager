@@ -68,3 +68,7 @@ func (m *MySQL) ListTables(db *sql.DB, databaseName string) ([]string, error) {
 	}
 	return tables, nil
 }
+
+func (m *MySQL) ListTable(db *sql.DB, databaseName string, tableName string) error {
+	return nil
+}

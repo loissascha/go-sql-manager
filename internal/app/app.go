@@ -49,6 +49,17 @@ func (a *App) ListTables(dbName string) []string {
 	return list
 }
 
+func (a *App) ListTable(dbName string, tableName string) string {
+	if a.activeDb == nil {
+		return "no active db"
+	}
+	err := a.activeDb.ListTable(a.activeDbConnection, dbName, tableName)
+	if err != nil {
+		return "error from list table"
+	}
+	return ""
+}
+
 func (a *App) GetDatabaseConfigs() []configs.DatabaseConfig {
 	return a.databaseConfig.GetDatabaseConfigs()
 }
