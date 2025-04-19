@@ -53,6 +53,19 @@ export default function Dashboard() {
             })
     }
 
+    function connectionContextMenu(event: any) {
+        event.preventDefault()
+    }
+
+    function handleClick() { }
+
+    useEffect(() => {
+        document.addEventListener('click', handleClick)
+        return () => {
+            document.removeEventListener('click', handleClick)
+        }
+    }, [])
+
     return (
         <div className="h-full w-full">
             <div className="w-full mb-5">
@@ -97,6 +110,7 @@ export default function Dashboard() {
                     <button
                         key={connection.Id}
                         className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
+                        onContextMenu={connectionContextMenu}
                         onClick={() => {
                             connectionPressed(connection.Id)
                         }}
