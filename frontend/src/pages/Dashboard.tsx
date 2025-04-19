@@ -8,7 +8,7 @@ import InputText from '../components/form/InputText'
 import Button from '../components/ui/Button'
 import Header1 from '../components/ui/Header1'
 import './../style.css'
-import './Dashboard.css'
+import './../styles/Accordion.css'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 
 export default function Dashboard() {
@@ -74,7 +74,7 @@ export default function Dashboard() {
                                 </Header1>
                             </Accordion.Trigger>
                         </Accordion.Header>
-                        <Accordion.Content>
+                        <Accordion.Content className="AccordionContent">
                             <form onSubmit={createFormSubmitted}>
                                 <div className="grid grid-cols-2 gap-5">
                                     <FormGroup>
