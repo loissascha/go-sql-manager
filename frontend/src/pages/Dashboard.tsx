@@ -146,6 +146,15 @@ export default function Dashboard() {
                                             <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">
                                                 Delete Connection
                                             </ContextMenu.Item>
+                                            <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">
+                                                Delete Connection
+                                            </ContextMenu.Item>
+                                            <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">
+                                                Delete Connection
+                                            </ContextMenu.Item>
+                                            <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">
+                                                Delete Connection
+                                            </ContextMenu.Item>
                                         </ContextMenu.Content>
                                     </ContextMenu.Portal>
                                 </ContextMenu.Root>
