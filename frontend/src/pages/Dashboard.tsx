@@ -117,29 +117,43 @@ export default function Dashboard() {
                     </Accordion.Item>
                 </Accordion.Root>
             </div>
-            <Header1>Available Connections</Header1>
-            <div>
-                {connections.map((connection: any) => (
-                    <ContextMenu.Root key={connection.Id}>
-                        <ContextMenu.Trigger asChild>
-                            <button
-                                className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
-                                onClick={() => {
-                                    connectionPressed(connection.Id)
-                                }}
-                            >
-                                <strong>[{connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}]</strong> {connection.Host}:
-                                {connection.Port} - {connection.User}
-                            </button>
-                        </ContextMenu.Trigger>
-                        <ContextMenu.Portal>
-                            <ContextMenu.Content className="min-w-[200px] bg-white border border-gray-300 rounded shadow-md p-1">
-                                <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">Delete Connection</ContextMenu.Item>
-                            </ContextMenu.Content>
-                        </ContextMenu.Portal>
-                    </ContextMenu.Root>
-                ))}
-            </div>
+            <Accordion.Root type="single" collapsible defaultValue="available-connections">
+                <Accordion.Item value="available-connections">
+                    <Accordion.Header className="">
+                        <Accordion.Trigger className="AccordionTrigger">
+                            <Header1>
+                                Available Connections <ChevronDownIcon className="AccordionChevron inline" aria-hidden />
+                            </Header1>
+                        </Accordion.Trigger>
+                    </Accordion.Header>
+                    <Accordion.Content className="AccordionContent">
+                        <div>
+                            {connections.map((connection: any) => (
+                                <ContextMenu.Root key={connection.Id}>
+                                    <ContextMenu.Trigger asChild>
+                                        <button
+                                            className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
+                                            onClick={() => {
+                                                connectionPressed(connection.Id)
+                                            }}
+                                        >
+                                            <strong>[{connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}]</strong>{' '}
+                                            {connection.Host}:{connection.Port} - {connection.User}
+                                        </button>
+                                    </ContextMenu.Trigger>
+                                    <ContextMenu.Portal>
+                                        <ContextMenu.Content className="min-w-[200px] bg-white border border-gray-300 rounded shadow-md p-1">
+                                            <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">
+                                                Delete Connection
+                                            </ContextMenu.Item>
+                                        </ContextMenu.Content>
+                                    </ContextMenu.Portal>
+                                </ContextMenu.Root>
+                            ))}
+                        </div>
+                    </Accordion.Content>
+                </Accordion.Item>
+            </Accordion.Root>
         </div>
     )
 }
