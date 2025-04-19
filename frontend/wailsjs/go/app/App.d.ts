@@ -10,4 +10,6 @@ export function GetDatabaseConfigs():Promise<Array<configs.DatabaseConfig>>;
 
 export function ListDbTables():Promise<Array<string>>;
 
+export function ListTable(arg1:string,arg2:string):Promise<string>;
+
 export function ListTables(arg1:string):Promise<Array<string>>;
