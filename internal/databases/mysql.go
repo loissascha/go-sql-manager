@@ -70,5 +70,26 @@ func (m *MySQL) ListTables(db *sql.DB, databaseName string) ([]string, error) {
 }
 
 func (m *MySQL) ListTable(db *sql.DB, databaseName string, tableName string) error {
+	query := fmt.Sprintf("SELECT * FROM %s.%s", databaseName, tableName)
+	rows, err := db.Query(query)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	cols, err := rows.Columns()
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("Cols:", cols)
+
+	for rows.Next() {
+		var rowData []any
+		if err := rows.Scan(&rowData); err != nil {
+			return err
+		}
+		fmt.Println(rowData)
+	}
 	return nil
 }
