@@ -1,3 +1,4 @@
+import * as Accordion from '@radix-ui/react-accordion'
 import * as ContextMenu from '@radix-ui/react-context-menu'
 import { useEffect, useState } from 'react'
 import { ActivateConnection, AddDatabaseConfig, GetDatabaseConfigs } from '../../wailsjs/go/app/App'
@@ -7,6 +8,8 @@ import InputText from '../components/form/InputText'
 import Button from '../components/ui/Button'
 import Header1 from '../components/ui/Header1'
 import './../style.css'
+import './Dashboard.css'
+import { ChevronDownIcon } from '@radix-ui/react-icons'
 
 export default function Dashboard() {
     const [createHost, setCreateHost] = useState<string>('')
@@ -48,6 +51,11 @@ export default function Dashboard() {
             .then(() => {
                 console.log('done!')
                 loadDbConfigs()
+                setCreateHost('')
+                setCreatePort('')
+                setCreateUser('')
+                setCreateEngine('')
+                setCreatePassword('')
             })
             .catch((error) => {
                 alert(error)
@@ -57,40 +65,57 @@ export default function Dashboard() {
     return (
         <div className="h-full w-full">
             <div className="w-full mb-5">
-                <Header1>Create Connection</Header1>
-                <form onSubmit={createFormSubmitted}>
-                    <div className="grid grid-cols-2 gap-5">
-                        <FormGroup>
-                            <FormLabel htmlFor="host">Host:</FormLabel>
-                            <InputText id="host" value={createHost} onChange={updateCreateHost} />
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel htmlFor="port">Port:</FormLabel>
-                            <InputText id="port" value={createPort} onChange={updateCreatePort} />
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel htmlFor="user">User:</FormLabel>
-                            <InputText id="user" value={createUser} onChange={updateCreateUser} />
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel htmlFor="password">Password:</FormLabel>
-                            <InputText id="password" value={createPassword} onChange={updateCreatePassword} />
-                        </FormGroup>
-                    </div>
-                    <div className="mt-5">
-                        <FormGroup>
-                            <FormLabel htmlFor="engine">Engine:</FormLabel>
-                            <select id="engine" className="bg-gray-700 text-black w-full" value={createEngine} onChange={updateCreateEngine}>
-                                <option value={''}>Please select...</option>
-                                <option value={'0'}>MySql</option>
-                                <option value={'1'}>Postgres</option>
-                            </select>
-                        </FormGroup>
-                    </div>
-                    <div className="mt-5">
-                        <Button>Save</Button>
-                    </div>
-                </form>
+                <Accordion.Root className="" type="single" collapsible>
+                    <Accordion.Item value="create-connection">
+                        <Accordion.Header className="">
+                            <Accordion.Trigger className="AccordionTrigger">
+                                <Header1>
+                                    Create Connection <ChevronDownIcon className="AccordionChevron inline" aria-hidden />
+                                </Header1>
+                            </Accordion.Trigger>
+                        </Accordion.Header>
+                        <Accordion.Content>
+                            <form onSubmit={createFormSubmitted}>
+                                <div className="grid grid-cols-2 gap-5">
+                                    <FormGroup>
+                                        <FormLabel htmlFor="host">Host:</FormLabel>
+                                        <InputText id="host" value={createHost} onChange={updateCreateHost} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel htmlFor="port">Port:</FormLabel>
+                                        <InputText id="port" value={createPort} onChange={updateCreatePort} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel htmlFor="user">User:</FormLabel>
+                                        <InputText id="user" value={createUser} onChange={updateCreateUser} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel htmlFor="password">Password:</FormLabel>
+                                        <InputText id="password" value={createPassword} onChange={updateCreatePassword} />
+                                    </FormGroup>
+                                </div>
+                                <div className="mt-5">
+                                    <FormGroup>
+                                        <FormLabel htmlFor="engine">Engine:</FormLabel>
+                                        <select
+                                            id="engine"
+                                            className="bg-gray-700 text-black w-full"
+                                            value={createEngine}
+                                            onChange={updateCreateEngine}
+                                        >
+                                            <option value={''}>Please select...</option>
+                                            <option value={'0'}>MySql</option>
+                                            <option value={'1'}>Postgres</option>
+                                        </select>
+                                    </FormGroup>
+                                </div>
+                                <div className="mt-5">
+                                    <Button>Save</Button>
+                                </div>
+                            </form>
+                        </Accordion.Content>
+                    </Accordion.Item>
+                </Accordion.Root>
             </div>
             <Header1>Available Connections</Header1>
             <div>
