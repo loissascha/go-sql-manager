@@ -1,3 +1,4 @@
+import * as ContextMenu from '@radix-ui/react-context-menu'
 import { useEffect, useState } from 'react'
 import { ActivateConnection, AddDatabaseConfig, GetDatabaseConfigs } from '../../wailsjs/go/app/App'
 import FormGroup from '../components/form/FormGroup'
@@ -57,7 +58,7 @@ export default function Dashboard() {
         event.preventDefault()
     }
 
-    function handleClick() { }
+    function handleClick() {}
 
     useEffect(() => {
         document.addEventListener('click', handleClick)
@@ -107,17 +108,25 @@ export default function Dashboard() {
             <Header1>Available Connections</Header1>
             <div>
                 {connections.map((connection: any) => (
-                    <button
-                        key={connection.Id}
-                        className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
-                        onContextMenu={connectionContextMenu}
-                        onClick={() => {
-                            connectionPressed(connection.Id)
-                        }}
-                    >
-                        <strong>[{connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}]</strong> {connection.Host}:
-                        {connection.Port} - {connection.User}
-                    </button>
+                    <ContextMenu.Root key={connection.Id}>
+                        <ContextMenu.Trigger asChild>
+                            <button
+                                className="cursor-pointer block w-full text-left py-2 mb-2 bg-gray-600 px-2 rounded"
+                                onContextMenu={connectionContextMenu}
+                                onClick={() => {
+                                    connectionPressed(connection.Id)
+                                }}
+                            >
+                                <strong>[{connection.Type == 0 ? 'MySql' : connection.Type == 1 ? 'Postgres' : 'Unknown'}]</strong> {connection.Host}:
+                                {connection.Port} - {connection.User}
+                            </button>
+                        </ContextMenu.Trigger>
+                        <ContextMenu.Portal>
+                            <ContextMenu.Content className="min-w-[200px] bg-white border border-gray-300 rounded shadow-md p-1">
+                                <ContextMenu.Item className="px-2 py-1 hover:bg-gray-100 cursor-pointer">Option 1</ContextMenu.Item>
+                            </ContextMenu.Content>
+                        </ContextMenu.Portal>
+                    </ContextMenu.Root>
                 ))}
             </div>
         </div>
