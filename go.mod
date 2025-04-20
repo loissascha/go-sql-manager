@@ -1,6 +1,8 @@
 module go-sql-manager
 
-go 1.23
+go 1.23.3
+
+toolchain go1.24.2
 
 require (
 	github.com/go-sql-driver/mysql v1.9.1
@@ -21,6 +23,7 @@ require (
 	github.com/leaanthony/gosod v1.0.4 // indirect
 	github.com/leaanthony/slicer v1.6.0 // indirect
 	github.com/leaanthony/u v1.1.1 // indirect
+	github.com/loissascha/go-logger v0.0.3 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c // indirect

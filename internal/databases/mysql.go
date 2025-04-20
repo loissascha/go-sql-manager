@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/loissascha/go-logger/logger"
 )
 
 type MySQL struct {
@@ -28,13 +29,16 @@ func (m *MySQL) Connect() (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Connected to MySQL")
+	logger.Info(nil, "Connected to MySQL")
 	return db, nil
 }
 
 func (m *MySQL) ListDatabases(db *sql.DB) ([]string, error) {
+	logger.Info(nil, "SHOW DATABASES query")
 	rows, err := db.Query("SHOW DATABASES")
 	if err != nil {
+		logger.Error(err, "SHOW DATABASES error!")
+		fmt.Println(err)
 		return []string{}, err
 	}
 	defer rows.Close()
@@ -43,6 +47,7 @@ func (m *MySQL) ListDatabases(db *sql.DB) ([]string, error) {
 	for rows.Next() {
 		var dbName string
 		if err := rows.Scan(&dbName); err != nil {
+			fmt.Println("SHOW DATABASES row scan error!")
 			return list, err
 		}
 		list = append(list, dbName)
