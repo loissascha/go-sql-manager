@@ -81,6 +81,12 @@ func (p *PostgreSQL) ListTables(dba *sql.DB, databaseName string) ([]string, err
 	return tables, nil
 }
 
-func (m *PostgreSQL) ListTable(db *sql.DB, databaseName string, tableName string) error {
+func (m *PostgreSQL) ListTable(dba *sql.DB, databaseName string, tableName string) error {
+	db, err := sql.Open("postgres", m.connectionString+databaseName+"?sslmode=disable")
+	if err != nil {
+		logger.Error(err, "Error creating db connection for list table!")
+		return err
+	}
+	defer db.Close()
 	return nil
 }
