@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	_ "github.com/lib/pq"
+	"github.com/loissascha/go-logger/logger"
 )
 
 type PostgreSQL struct {
@@ -29,13 +30,16 @@ func (p *PostgreSQL) Connect() (*sql.DB, error) {
 		return nil, err
 	}
 
-	fmt.Println("Connected to PostgreSQL")
+	logger.Info(nil, "Connected to PostgreSQL")
 	return db, nil
 }
 
 func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
+	logger.Info(nil, "SHOW DATABASES query")
 	rows, err := db.Query("SELECT datname FROM pg_database WHERE datistemplate = false")
 	if err != nil {
+		logger.Error(err, "SHOW DATABASES error!")
+		fmt.Println(err)
 		return []string{}, err
 	}
 	defer rows.Close()
@@ -44,6 +48,7 @@ func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
 	for rows.Next() {
 		var dbName string
 		if err := rows.Scan(&dbName); err != nil {
+			logger.Error(err, "SHOW DATABASES row scan error!")
 			return list, err
 		}
 		list = append(list, dbName)
@@ -52,7 +57,6 @@ func (p *PostgreSQL) ListDatabases(db *sql.DB) ([]string, error) {
 }
 
 func (p *PostgreSQL) ListTables(dba *sql.DB, databaseName string) ([]string, error) {
-	fmt.Println("PostgreSQL ListTables start")
 	db, err := sql.Open("postgres", p.connectionString+databaseName+"?sslmode=disable")
 	if err != nil {
 		return nil, err
@@ -71,10 +75,8 @@ func (p *PostgreSQL) ListTables(dba *sql.DB, databaseName string) ([]string, err
 		if err := rows.Scan(&tableName); err != nil {
 			return nil, err
 		}
-		fmt.Println("found table name:", tableName)
 		tables = append(tables, tableName)
 	}
-	fmt.Println("PostgreSQL ListTables end")
 	fmt.Println(tables)
 	return tables, nil
 }
