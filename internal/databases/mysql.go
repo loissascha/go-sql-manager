@@ -47,7 +47,7 @@ func (m *MySQL) ListDatabases(db *sql.DB) ([]string, error) {
 	for rows.Next() {
 		var dbName string
 		if err := rows.Scan(&dbName); err != nil {
-			fmt.Println("SHOW DATABASES row scan error!")
+			logger.Error(err, "SHOW DATABASES row scan error!")
 			return list, err
 		}
 		list = append(list, dbName)
