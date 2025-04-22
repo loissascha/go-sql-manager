@@ -8,6 +8,7 @@ import (
 	"go-sql-manager/internal/databases"
 
 	"github.com/google/uuid"
+	"github.com/loissascha/go-logger/logger"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -95,6 +96,7 @@ func (a *App) ActivateConnection(id string) {
 			case configs.DATABASE_MYSQL:
 				a.activeDb = &databases.MySQL{}
 				connStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/", cfg.User, cfg.Password, cfg.Host, cfg.Port)
+				logger.Info(nil, "Connection string: {connStr}", connStr)
 				err := a.activeDb.SetConnectionString(connStr)
 				if err != nil {
 					panic(err)
@@ -103,6 +105,7 @@ func (a *App) ActivateConnection(id string) {
 			case configs.DATABASE_POSTGRES:
 				a.activeDb = &databases.PostgreSQL{}
 				connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/", cfg.User, cfg.Password, cfg.Host, cfg.Port)
+				logger.Info(nil, "Connection string: {connStr}", connStr)
 				err := a.activeDb.SetConnectionString(connStr)
 				if err != nil {
 					panic(err)

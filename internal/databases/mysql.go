@@ -23,10 +23,12 @@ func (m *MySQL) SetConnectionString(con string) error {
 
 func (m *MySQL) Connect() (*sql.DB, error) {
 	if strings.TrimSpace(m.connectionString) == "" {
+		logger.Error(nil, "No connection string provided!")
 		return nil, fmt.Errorf("No connection string provided!")
 	}
 	db, err := sql.Open("mysql", m.connectionString)
 	if err != nil {
+		logger.Error(err, "Can't connect to MySQL")
 		return nil, err
 	}
 	logger.Info(nil, "Connected to MySQL")
